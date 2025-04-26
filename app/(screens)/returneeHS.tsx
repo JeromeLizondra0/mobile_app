@@ -10,7 +10,7 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { useRouter } from 'expo-router';
 
-const Highschool: React.FC = () => {
+const ReturneeHighSchool: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [middleName, setMiddleName] = useState('');
@@ -326,4 +326,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Highschool;
+export default ReturneeHighSchool;

@@ -14,12 +14,6 @@ export default function StudentDashboard() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [notifications] = useState([
-    "School will be closed for a holiday on May 1st.",
-    "New grades have been posted, check your student records.",
-    "Parent-teacher meeting scheduled for next week.",
-  ]);
-
   const slideAnim = useRef(new Animated.Value(-width)).current;
 
   const openSidebar = () => {
@@ -75,11 +69,8 @@ export default function StudentDashboard() {
         </TouchableOpacity>
 
         {/* Notification Bell Icon */}
-        <TouchableOpacity onPress={handleNotificationClick} style={styles.notificationBell}>
-          <MaterialCommunityIcons name="bell" size={30} color="white" />
-          <View style={styles.notificationBadge}>
-            <Text style={styles.notificationBadgeText}>{notifications.length}</Text>
-          </View>
+        <TouchableOpacity onPress={() => router.push('/notification')} style={styles.notificationBell}>
+        <MaterialCommunityIcons name="bell" size={30} color="white" />
         </TouchableOpacity>
 
         {/* Profile Icon - Navigates to preview.tsx */}
@@ -96,11 +87,10 @@ export default function StudentDashboard() {
       {sidebarVisible && (
         <Animated.View style={[styles.sidebar, { left: slideAnim }]}>
           <View style={styles.sidebarHeader}>
-            <TouchableOpacity onPress={closeSidebar}>
-              <Text style={styles.menuIcon}>☰</Text>
-            </TouchableOpacity>
-          </View>
-
+        <TouchableOpacity onPress={closeSidebar}>
+          <MaterialIcons name="arrow-back-ios" size={28} color="white" />
+        </TouchableOpacity>
+        </View>
           <View style={styles.sidebarContent}>
             <Image source={require('@/assets/images/SCLC.png')} style={styles.sidebarLogo} />
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/student_dashboard'); }} style={styles.sidebarItem}>
@@ -113,7 +103,7 @@ export default function StudentDashboard() {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/CPayment'); }} style={styles.sidebarItem}>
               <FontAwesome6 name="credit-card" size={30} color="white" />
-              <Text style={styles.sidebarText}>Create Payment</Text>
+              <Text style={styles.sidebarText}>Upload Payment</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/DocumentOfStudent'); }} style={styles.sidebarItem}>
               <Entypo name="document" size={30} color="white" />
@@ -135,20 +125,20 @@ export default function StudentDashboard() {
       <View style={styles.customBox}>
   <View style={styles.textContainer}>
     <Text style={styles.greetingTitle}>Welcome, Jerome!</Text>
-    <Text style={styles.greetingMessage}>The harder You work, {"\n"}the more luck You seem to have.</Text>
+    <Text style={styles.greetingMessage}>" The harder You work, {"\n"}the more luck You seem to have. "</Text>
 
     {/* Languages */}
     <View style={styles.infoRow}>
           <Entypo name="graduation-cap" size={17} color="black" />
-          <Text style={styles.detailText}>Grade: <Text style={styles.boldText}>10</Text></Text>
+          <Text style={styles.detailText}>LRN: <Text style={styles.boldText}>1123123123120</Text></Text>
         </View>
         <View style={styles.infoRow}>
-          <FontAwesome6 name="users-line" size={17} color="black" />
+          <FontAwesome6 name="users-line" size={12} color="black" />
           <Text style={styles.detailText}>Section: <Text style={styles.boldText}>Bayabas</Text></Text>
         </View>
     <View style={styles.infoRow}>
       <MaterialIcons name="language" size={17} color="black" />
-      <Text style={styles.detailText}>Languages: <Text style={styles.boldText}>Filipino, English</Text></Text>
+      <Text style={styles.detailText}>Email: <Text style={styles.boldText}>jeromelizondra123@gmail.com</Text></Text>
     </View>
 
     {/* Location */}
@@ -170,45 +160,37 @@ export default function StudentDashboard() {
 
       {/* Main Content */}
       <View style={[styles.mainContent, { marginLeft: sidebarVisible ? 250 : 0 }]}>
-        <Text style={styles.mainTitle}>Student Dashboard</Text>
-        <View style={styles.boxContainer}>
-          {/* Classes Box */}
-          <TouchableOpacity
-            onPress={() => router.push('/classes')}
-            style={[styles.box, styles.classesBox]}
-          >
-            <MaterialCommunityIcons name="school" size={60} color="#fff" />
-            <Text style={styles.boxTitle}>Classes</Text>
-          </TouchableOpacity>
+  <Text style={styles.mainTitle}>Student Dashboard</Text>
+  <View style={styles.boxContainer}>
+    {/* Classes Box */}
+    <TouchableOpacity
+      onPress={() => router.push('/classes')}
+      style={[styles.box, styles.classesBox]}
+    >
+      <MaterialCommunityIcons name="school" size={60} color="#fff" />
+      <Text style={styles.boxTitle}>Classes</Text>
+    </TouchableOpacity>
 
-          {/* Events Box */}
-          <TouchableOpacity
-            onPress={() => router.push('/events')}
-            style={[styles.box, styles.eventsBox]}
-          >
-            <MaterialCommunityIcons name="calendar" size={60} color="#fff" />
-            <Text style={styles.boxTitle}>Events</Text>
-          </TouchableOpacity>
+    {/* Subjects Box */}
+    <TouchableOpacity
+      onPress={() => router.push('/subjects')}
+      style={[styles.box, styles.subjectsBox]}
+    >
+      <MaterialCommunityIcons name="book" size={60} color="#fff" />
+      <Text style={styles.boxTitle}>Subjects</Text>
+    </TouchableOpacity>
 
-          {/* Subjects Box */}
-          <TouchableOpacity
-            onPress={() => router.push('/subjects')}
-            style={[styles.box, styles.subjectsBox]}
-          >
-            <MaterialCommunityIcons name="book" size={60} color="#fff" />
-            <Text style={styles.boxTitle}>Subjects</Text>
-          </TouchableOpacity>
+    {/* Payments Box */}
+    <TouchableOpacity
+      onPress={() => router.push('/payments')}
+      style={[styles.box, styles.paymentsBox]}
+    >
+      <MaterialCommunityIcons name="credit-card" size={60} color="#fff" />
+      <Text style={styles.boxTitle}>Payments Balance</Text>
+    </TouchableOpacity>
+  </View>
+</View>
 
-          {/* Payments Box */}
-          <TouchableOpacity
-            onPress={() => router.push('/payments')}
-            style={[styles.box, styles.paymentsBox]}
-          >
-            <MaterialCommunityIcons name="credit-card" size={60} color="#fff" />
-            <Text style={styles.boxTitle}>Payments Balance</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
 
       {/* Announcement Modal */}
       <Modal
@@ -217,26 +199,10 @@ export default function StudentDashboard() {
         transparent={true}
         onRequestClose={closeNotificationModal}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Announcements</Text>
-            <FlatList
-              data={notifications}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <Text style={styles.announcementText}>{item}</Text>
-              )}
-            />
-            <TouchableOpacity onPress={closeNotificationModal} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </Modal>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },
   backgroundImage: {
@@ -269,23 +235,7 @@ const styles = StyleSheet.create({
   },
   notificationBell: {
     position: 'relative',
-    marginLeft: 270,
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: -5,
-    right: -5,
-    backgroundColor: 'red',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  notificationBadgeText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
+    marginLeft: 250,
   },
   sidebar: {
     position: 'absolute',
@@ -342,12 +292,13 @@ const styles = StyleSheet.create({
   mainContent: { paddingHorizontal: 20, paddingTop: 20, flex: 1 },
   mainTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: 'white' },
   boxContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    width: '100%',
   },
   box: {
-    width: '48%',
+    width: '100%',
     backgroundColor: '#2196F3', 
     borderRadius: 15,
     padding: 20,
@@ -365,7 +316,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   classesBox: { backgroundColor: '#4CAF50' },
-  eventsBox: { backgroundColor: '#FF9800' },
   subjectsBox: { backgroundColor: '#9C27B0' },
   paymentsBox: { backgroundColor: '#2980B9' },
   modalContainer: {
@@ -380,8 +330,6 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 10,
   },
-  modalTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-  announcementText: { fontSize: 16, marginBottom: 10 },
   closeButton: {
     backgroundColor: '#2196F3',
     paddingVertical: 10,
@@ -394,9 +342,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-
-
-  // Box style remains the same
   customBox: {
     opacity: 0.95, // Slightly increased opacity for better visibility
     height: 220, // Adjusted height for better spacing
@@ -416,7 +361,6 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0', // Light gray border for subtle separation
     backgroundColor: '#f9f9f9', // Subtle light gray background instead of pure white for less glare
   },
-  
   textContainer: {
     position: 'absolute', // Positioning the container absolutely within the parent
     top: 20, // Space from the top of the screen
@@ -442,7 +386,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#D5D8DC',
   },
-
   profileImage: {
     width: 130,
     height: 130,
@@ -454,7 +397,7 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: 3,
   },
   detailText: {
     fontSize: 14,

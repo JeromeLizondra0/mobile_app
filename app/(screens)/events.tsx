@@ -22,12 +22,12 @@ export default function EventsPage() {
   return (
     <View style={styles.container}>
       {/* Events Header */}
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <TouchableOpacity style={styles.button} onPress={() => setCalendarVisible(true)}>
           <MaterialCommunityIcons name="calendar" size={24} color="white" />
           <Text style={styles.buttonText}>Events</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* Events List */}
       <ScrollView contentContainerStyle={styles.eventsList}>
@@ -38,19 +38,17 @@ export default function EventsPage() {
               <Text style={styles.eventTitle}>{event.title}</Text>
               <Text style={styles.eventDate}>{event.date} at {event.time}</Text>
               <View style={styles.countdownContainer}>
-                <Text style={styles.countdownText}>Countdown:</Text>
-                <Text style={styles.countdown}>3 Days</Text>
+                {/* <Text style={styles.countdownText}>Countdown:</Text> */}
+                {/* <Text style={styles.countdown}>3 Days</Text> */}
               </View>
-              <TouchableOpacity style={styles.viewButton} onPress={() => alert(`Details for ${event.title}`)}>
-                <Text style={styles.viewButtonText}>View Details</Text>
-              </TouchableOpacity>
+             
             </View>
           </View>
         ))}
       </ScrollView>
 
       {/* Calendar Modal */}
-      <Modal visible={calendarVisible} transparent animationType="fade">
+      {/* <Modal visible={calendarVisible} transparent animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>📆 Event Calendar</Text>
@@ -72,7 +70,7 @@ export default function EventsPage() {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 }

@@ -15,7 +15,7 @@ export default function HomeScreen() {
         style={styles.backgroundImage}
       />
       <View style={styles.overlay}>
-        <Text style={styles.welcomeText}>Welcome to Sta.Cruz Enrollment Portal</Text>
+        <Text style={styles.welcomeText}>Welcome to Sta.Cruz Portal</Text>
         <TouchableOpacity style={styles.proceedButton} onPress={handleProceed}>
           <Text style={styles.proceedButtonText}>Proceed</Text>
         </TouchableOpacity>

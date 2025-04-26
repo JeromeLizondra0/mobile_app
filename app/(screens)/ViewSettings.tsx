@@ -3,18 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Modal, Fla
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons, MaterialIcons, FontAwesome6, Entypo } from '@expo/vector-icons';
 
-// Constants
-const { width } = Dimensions.get('window');
-const NOTIFICATIONS = [
-  "School will be closed for a holiday on May 1st.",
-  "New grades have been posted, check your student records.",
-  "Parent-teacher meeting scheduled for next week.",
-];
 
 const sidebarItems = [
   { icon: <MaterialIcons name="dashboard" size={30} color="white" />, text: "Dashboard", route: "/student_dashboard" },
   { icon: <MaterialCommunityIcons name="history" size={30} color="white" />, text: "Payment History", route: "/PHistory" },
-  { icon: <FontAwesome6 name="credit-card" size={30} color="white" />, text: "Create Payment", route: "/CPayment" },
+  { icon: <FontAwesome6 name="credit-card" size={30} color="white" />, text: "Upload Payment", route: "/CPayment" },
   { icon: <Entypo name="document" size={30} color="white" />, text: "Document of Student", route: "/DocumentOfStudent" },
   { icon: <MaterialIcons name="settings" size={30} color="white" />, text: "View Settings", route: "/ViewSettings" },
 ];
@@ -22,8 +15,6 @@ const sidebarItems = [
 export default function ViewSettings() {
   const router = useRouter();
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -33,8 +24,6 @@ export default function ViewSettings() {
   const closeSidebar = () => setSidebarVisible(false);
 
   const handleLogout = () => router.push('/login');
-  const handleNotificationClick = () => setIsModalVisible(true);
-  const closeNotificationModal = () => setIsModalVisible(false);
 
   const validatePassword = () => {
     if (newPassword !== confirmPassword) {
@@ -68,8 +57,6 @@ export default function ViewSettings() {
       <Image source={require('@/assets/images/background.jpg')} style={styles.backgroundImage} />
       <View style={styles.topBar}>
         <SidebarButton openSidebar={openSidebar} />
-        <NotificationBell notifications={NOTIFICATIONS} onPress={handleNotificationClick} />
-        <ProfileIcon profileImage={profileImage} onPress={() => router.push('/preview')} />
       </View>
 
       {/* Sidebar */}
@@ -78,11 +65,6 @@ export default function ViewSettings() {
       {/* Change Password Form */}
       <View style={styles.mainContent}>
         <Text style={styles.mainTitle}>Change Password</Text>
-        <PasswordInput
-          placeholder="Current Password"
-          value={currentPassword}
-          onChangeText={setCurrentPassword}
-        />
         <PasswordInput
           placeholder="New Password"
           value={newPassword}
@@ -96,29 +78,9 @@ export default function ViewSettings() {
         <HelpLinks />
         <ActionButtons onSave={handleSave} onCancel={handleCancel} isLoading={isLoading} />
       </View>
-
-      {/* Announcement Modal */}
-      <Modal visible={isModalVisible} animationType="slide" transparent={true} onRequestClose={closeNotificationModal}>
-        <TouchableWithoutFeedback onPress={closeNotificationModal}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Announcements</Text>
-              <FlatList
-                data={NOTIFICATIONS}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => <Text style={styles.announcementText}>{item}</Text>}
-              />
-              <TouchableOpacity onPress={closeNotificationModal} style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
     </View>
   );
 }
-
 // Sidebar Components
 
 const SidebarButton = ({ openSidebar }: { openSidebar: () => void }) => (
@@ -127,27 +89,12 @@ const SidebarButton = ({ openSidebar }: { openSidebar: () => void }) => (
   </TouchableOpacity>
 );
 
-const NotificationBell = ({ notifications, onPress }: { notifications: string[], onPress: () => void }) => (
-  <TouchableOpacity onPress={onPress} style={styles.notificationBell}>
-    <MaterialCommunityIcons name="bell" size={30} color="white" />
-    <View style={styles.notificationBadge}>
-      <Text style={styles.notificationBadgeText}>{notifications.length}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const ProfileIcon = ({ profileImage, onPress }: { profileImage: string | null, onPress: () => void }) => (
-  <TouchableOpacity onPress={onPress}>
-    <Image source={profileImage ? { uri: profileImage } : require('@/assets/images/profile-1.jpg')} style={styles.profilePicTop} />
-  </TouchableOpacity>
-);
-
 const Sidebar = ({ closeSidebar, router, handleLogout }: { closeSidebar: () => void, router: any, handleLogout: () => void }) => (
   <View style={styles.sidebar}>
     <View style={styles.sidebarHeader}>
-      <TouchableOpacity onPress={closeSidebar}>
-        <Text style={styles.menuIcon}>☰</Text>
-      </TouchableOpacity>
+    <TouchableOpacity onPress={closeSidebar}>
+          <MaterialIcons name="arrow-back-ios" size={28} color="white" />
+        </TouchableOpacity>
     </View>
 
     <View style={styles.sidebarContent}>
@@ -186,12 +133,7 @@ const PasswordInput = ({ placeholder, value, onChangeText }: { placeholder: stri
 
 const HelpLinks = () => (
   <View style={styles.linkContainer}>
-    <TouchableOpacity style={styles.leftLink} onPress={() => alert("Help Clicked")}>
-      <Text style={styles.linkText}>Help</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.rightLink} onPress={() => alert("Forgot Password Clicked")}>
-      <Text style={styles.linkText}>Forgot Password?</Text>
-    </TouchableOpacity>
+
   </View>
 );
 
@@ -225,18 +167,8 @@ const styles = StyleSheet.create({
   mainTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
   inputField: { height: 50, borderColor: '#ccc', borderWidth: 1, marginBottom: 15, paddingLeft: 10, borderRadius: 10, fontSize: 16 },
   linkContainer: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20,width: '100%', },
-  link: { flex: 1 },
-  linkText: { color: '#2980B9', textDecorationLine: 'underline', fontSize: 16, textAlign: 'center' },
-  leftLink: {justifyContent: 'flex-start', },
-  rightLink: {flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end',},
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-between' },
   saveButton: { backgroundColor: '#4CAF50', paddingVertical: 15, paddingHorizontal: 30, borderRadius: 25 },
   cancelButton: { backgroundColor: '#f44336', paddingVertical: 15, paddingHorizontal: 30, borderRadius: 25 },
   buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-  modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
-  modalContent: { backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' },
-  modalTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-  announcementText: { fontSize: 16, marginBottom: 10 },
-  closeButton: { backgroundColor: '#f44336', paddingVertical: 10, borderRadius: 5, alignItems: 'center' },
-  closeButtonText: { color: 'white', fontSize: 16 },
 });

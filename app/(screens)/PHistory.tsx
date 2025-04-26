@@ -21,12 +21,7 @@ export default function PHistory() {
   const router = useRouter();
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [notifications] = useState([
-    "School will be closed for a holiday on May 1st.",
-    "New grades have been posted, check your student records.",
-    "Parent-teacher meeting scheduled for next week.",
-  ]);
+  
 
   const [selectedYear, setSelectedYear] = useState(''); // New state for the selected year
   const [loading, setLoading] = useState(false);
@@ -69,18 +64,10 @@ export default function PHistory() {
     router.push('/login');
   };
 
-  const handleNotificationClick = () => {
-    setIsModalVisible(true);
-  };
-
-  const closeNotificationModal = () => {
-    setIsModalVisible(false);
-  };
-
   const renderPaymentItem = ({ item }: { item: PaymentHistoryItem }) => (
     <View style={styles.paymentItem}>
       <Text style={styles.paymentText}>Payment ID: {item.id}</Text>
-      <Text style={styles.paymentText}>Amount: ${item.amount}</Text>
+      <Text style={styles.paymentText}>Amount: P{item.amount}</Text>
       <Text style={styles.paymentText}>Date: {item.date}</Text>
     </View>
   );
@@ -97,11 +84,8 @@ export default function PHistory() {
         </TouchableOpacity>
 
         {/* Notification Bell Icon */}
-        <TouchableOpacity onPress={handleNotificationClick} style={styles.notificationBell}>
-          <MaterialCommunityIcons name="bell" size={30} color="white" />
-          <View style={styles.notificationBadge}>
-            <Text style={styles.notificationBadgeText}>{notifications.length}</Text>
-          </View>
+        <TouchableOpacity onPress={() => router.push('/notification')} style={styles.notificationBell}>
+                <MaterialCommunityIcons name="bell" size={30} color="white" />
         </TouchableOpacity>
 
         {/* Profile Icon - Navigates to preview.tsx */}
@@ -119,7 +103,7 @@ export default function PHistory() {
         <Animated.View style={[styles.sidebar, { left: slideAnim }]}>
           <View style={styles.sidebarHeader}>
             <TouchableOpacity onPress={closeSidebar}>
-              <Text style={styles.menuIcon}>☰</Text>
+            <MaterialIcons name="arrow-back-ios" size={28} color="white" />
             </TouchableOpacity>
           </View>
 
@@ -135,7 +119,7 @@ export default function PHistory() {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/CPayment'); }} style={styles.sidebarItem}>
               <FontAwesome6 name="credit-card" size={30} color="white" />
-              <Text style={styles.sidebarText}>Create Payment</Text>
+              <Text style={styles.sidebarText}>Upload Payment</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/DocumentOfStudent'); }} style={styles.sidebarItem}>
               <Entypo name="document" size={30} color="white" />
@@ -208,30 +192,6 @@ export default function PHistory() {
           />
         )}
       </View>
-
-      {/* Announcement Modal */}
-      <Modal
-        visible={isModalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={closeNotificationModal}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Announcements</Text>
-            <FlatList
-              data={notifications}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <Text style={styles.announcementText}>{item}</Text>
-              )}
-            />
-            <TouchableOpacity onPress={closeNotificationModal} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -269,22 +229,6 @@ const styles = StyleSheet.create({
   notificationBell: {
     position: 'relative',
     marginLeft: 270,
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: -5,
-    right: -5,
-    backgroundColor: 'red',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  notificationBadgeText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
   },
   sidebar: {
     position: 'absolute',
@@ -434,39 +378,6 @@ const styles = StyleSheet.create({
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   opacity: 0,
 },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    width: '80%',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  modalText: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  modalButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    backgroundColor: '#2980B9',
-    borderRadius: 5,
-  },
-  modalButtonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-  },
   announcementText: {
     fontSize: 16,
     marginBottom: 10,

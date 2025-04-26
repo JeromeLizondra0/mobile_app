@@ -16,12 +16,7 @@ export default function DocumentOfStudent() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDocumentDetailsVisible, setIsDocumentDetailsVisible] = useState(false); // State to toggle document details modal
   const [selectedDocument, setSelectedDocument] = useState<any>(null); // Store selected document
-  const [notifications] = useState([
-    "School will be closed for a holiday on May 1st.",
-    "New grades have been posted, check your student records.",
-    "Parent-teacher meeting scheduled for next week.",
-  ]);
-
+ 
   const slideAnim = useRef(new Animated.Value(-width)).current;
 
   const openSidebar = () => {
@@ -99,11 +94,8 @@ export default function DocumentOfStudent() {
         </TouchableOpacity>
 
         {/* Notification Bell Icon */}
-        <TouchableOpacity onPress={handleNotificationClick} style={styles.notificationBell}>
-          <MaterialCommunityIcons name="bell" size={30} color="white" />
-          <View style={styles.notificationBadge}>
-            <Text style={styles.notificationBadgeText}>{notifications.length}</Text>
-          </View>
+        <TouchableOpacity onPress={() => router.push('/notification')} style={styles.notificationBell}>
+                <MaterialCommunityIcons name="bell" size={30} color="white" />
         </TouchableOpacity>
 
         {/* Profile Icon */}
@@ -121,7 +113,7 @@ export default function DocumentOfStudent() {
         <Animated.View style={[styles.sidebar, { left: slideAnim }]}>
           <View style={styles.sidebarHeader}>
             <TouchableOpacity onPress={closeSidebar}>
-              <Text style={styles.menuIcon}>☰</Text>
+            <MaterialIcons name="arrow-back-ios" size={28} color="white" />
             </TouchableOpacity>
           </View>
 
@@ -139,7 +131,7 @@ export default function DocumentOfStudent() {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/CPayment'); }} style={styles.sidebarItem}>
               <FontAwesome6 name="credit-card" size={30} color="white" />
-              <Text style={styles.sidebarText}>Create Payment</Text>
+              <Text style={styles.sidebarText}>Upload Payment</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { closeSidebar(); router.push('/DocumentOfStudent'); }} style={styles.sidebarItem}>
               <Entypo name="document" size={30} color="white" />
@@ -175,32 +167,12 @@ export default function DocumentOfStudent() {
           {renderDocumentCard('Enrollment Verification')}
           {renderDocumentCard('GOOD MORAL')}
         </View>
-
         <Text style={styles.footerText}>All documents are securely stored and can be accessed at any time for your review.</Text>
 
         <TouchableOpacity style={styles.uploadButton} onPress={handleUploadDocument}>
           <Text style={styles.uploadButtonText}>Upload New Document</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Notification Modal */}
-      <Modal visible={isModalVisible} animationType="slide" transparent={true} onRequestClose={closeNotificationModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Announcements</Text>
-            <FlatList
-              data={notifications}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <Text style={styles.announcementText}>{item}</Text>
-              )}
-            />
-            <TouchableOpacity onPress={closeNotificationModal} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
 
       {/* Document Details Modal */}
       <Modal visible={isDocumentDetailsVisible} animationType="slide" transparent={true} onRequestClose={closeDocumentDetails}>
@@ -252,22 +224,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginLeft: 270,
   },
-  notificationBadge: {
-    position: 'absolute',
-    top: -5,
-    right: -5,
-    backgroundColor: 'red',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  notificationBadgeText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
+ 
   sidebar: {
     position: 'absolute',
     top: 0,

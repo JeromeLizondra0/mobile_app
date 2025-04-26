@@ -5,8 +5,7 @@ const Subjects = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Subjects</Text>
-      <Text style={styles.description}>Here are the subjects you are enrolled in:</Text>
-
+      <Text style={styles.description}>Here are the subjects you are enrolled in</Text>
       <View style={styles.subjectList}>
         <SubjectItem subjectName="English" />
         <SubjectItem subjectName="Math" />
@@ -18,7 +17,6 @@ const Subjects = () => {
     </View>
   );
 };
-
 const SubjectItem = ({ subjectName }: { subjectName: string }) => {
   const [scaleAnim] = React.useState(new Animated.Value(1));
   const [bgColor, setBgColor] = React.useState('#2980B9');  // Initial blue color
@@ -47,23 +45,6 @@ const SubjectItem = ({ subjectName }: { subjectName: string }) => {
   return (
     <View style={styles.subjectItem}>
       <Text style={styles.subjectText}>{subjectName}</Text>
-      {/* <Animated.View
-        style={[
-          styles.viewDetailsButton,
-          {
-            backgroundColor: bgColor,  // Apply the bgColor here
-            transform: [{ scale: scaleAnim }],
-          },
-        ]} */}
-      
-        {/* <TouchableOpacity
-          onPress={handlePress}
-          activeOpacity={0.7}
-          style={styles.touchableOpacity}
-        >
-          <Text style={styles.buttonText}>View Details</Text>
-        </TouchableOpacity> */}
-      {/* </Animated.View> */}
     </View>
   );
 };
@@ -75,6 +56,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
+    paddingBottom: 150, // 👈 Add paddingTop instead of marginBottom
   },
   title: {
     fontSize: 34,
@@ -125,18 +107,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     maxWidth: '75%',
   },
-  // viewDetailsButton: {
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 30,
-  //   borderRadius: 30,
-  //   elevation: 5,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   shadowColor: '#007bff',
-  //   shadowOffset: { width: 0, height: 3 },
-  //   shadowOpacity: 0.3,
-  //   shadowRadius: 8,
-  // },
   buttonText: {
     color: '#fff',
     fontSize: 16,

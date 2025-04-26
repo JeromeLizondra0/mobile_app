@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet, ImageBackground, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function Verification() {
+export default function ForgotPassword() {
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ export default function Verification() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push('/verifyEmail');
+      router.push('/verifyCode');
     }, 3000);
   };
 
@@ -45,6 +45,10 @@ export default function Verification() {
           ) : (
             <Text style={styles.verifyText}>Verify</Text>
           )}
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.verifyButton, styles.loginButton]} onPress={() => router.push('/login')}>
+          <Text style={styles.verifyText}>Back to login</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -113,6 +117,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: '100%',
     alignItems: 'center',
+  },
+  loginButton: {
+    marginTop: 10,
+    backgroundColor: '#555',
   },
   verifyText: {
     color: '#fff',

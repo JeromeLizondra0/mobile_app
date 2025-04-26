@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
-import { useRouter } from 'expo-router';  // Importing useRouter
+import { useRouter } from 'expo-router';
 
-// Defining color and design constants
 const colors = {
   primary: "#06a8f3",
   danger: "#ff7782",
@@ -21,7 +20,7 @@ const Choices = () => {
   const [showTransfereeOptions, setShowTransfereeOptions] = useState(false);
   const [showOldOptions, setShowOldOptions] = useState(false);
 
-  const router = useRouter();  // Initialize useRouter
+  const router = useRouter();
 
   const handleNewReturneePress = () => {
     setShowNewReturneeOptions(!showNewReturneeOptions);
@@ -35,22 +34,16 @@ const Choices = () => {
     setShowOldOptions(!showOldOptions);
   };
 
-  // Function to navigate based on selected option
   const handleOptionSelect = (level: string) => {
     if (level === "Elementary") {
-      router.push("/Elementary"); // Navigate to Elementary.tsx for New/Returnee and Transferee
+      router.push("/Elementary");
     } else if (level === "High School") {
-      router.push("/Highschool"); // Navigate to Highschool.tsx for New/Returnee and Transferee
+      router.push("/Highschool");
     }
   };
 
-  // Custom handler for Old option (navigate to Verification.tsx)
   const handleOldOptionSelect = (level: string) => {
-    if (level === "Elementary") {
-      router.push("/Verification"); // Navigate to Verification.tsx for Old students
-    } else if (level === "High School") {
-      router.push("/Verification"); // Navigate to Highschool.tsx for Old students
-    }
+    router.push("/Verification");
   };
 
   return (
@@ -64,12 +57,12 @@ const Choices = () => {
           <Image source={require("@/assets/images/SCLC.png")} style={styles.logo} />
           <Text style={styles.selectLocationText}>Please select where you'd like to enroll</Text>
 
-          {/* New/Returnee Button */}
+          {/* New/Transferee Button */}
           <TouchableOpacity style={styles.button} onPress={handleNewReturneePress}>
-            <Text style={styles.boxText}>New/Returnee</Text>
+            <Text style={styles.boxText}>New/Transferee</Text>
           </TouchableOpacity>
 
-          {/* Options for New/Returnee */}
+          {/* Options for New/Transferee */}
           {showNewReturneeOptions && (
             <View style={styles.optionsContainer}>
               <TouchableOpacity style={styles.optionButton} onPress={() => handleOptionSelect('Elementary')}>
@@ -81,18 +74,18 @@ const Choices = () => {
             </View>
           )}
 
-          {/* Transferee Button */}
+          {/* Returnee Button */}
           <TouchableOpacity style={styles.button} onPress={handleTransfereePress}>
-            <Text style={styles.boxText}>Transferee</Text>
+            <Text style={styles.boxText}>Returnee</Text>
           </TouchableOpacity>
 
-          {/* Options for Transferee */}
+          {/* Options for Returnee */}
           {showTransfereeOptions && (
             <View style={styles.optionsContainer}>
-              <TouchableOpacity style={styles.optionButton} onPress={() => handleOptionSelect('Elementary')}>
+              <TouchableOpacity style={styles.optionButton} onPress={() => handleOldOptionSelect('Elementary')}>
                 <Text style={styles.optionText}>Elementary</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.optionButton} onPress={() => handleOptionSelect('High School')}>
+              <TouchableOpacity style={styles.optionButton} onPress={() => handleOldOptionSelect('High School')}>
                 <Text style={styles.optionText}>High School</Text>
               </TouchableOpacity>
             </View>
@@ -114,7 +107,6 @@ const Choices = () => {
               </TouchableOpacity>
             </View>
           )}
-
         </View>
       </View>
     </ImageBackground>
@@ -136,7 +128,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   box: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', 
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
     padding: 20,
     borderRadius: 10,
     shadowColor: colors.dark,
@@ -184,7 +176,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    backgroundColor: '#162938',
+    backgroundColor: 'rgba(22, 41, 56, 0.9)',
     paddingVertical: 20,
     paddingHorizontal: 25,
     borderRadius: 10,

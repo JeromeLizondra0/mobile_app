@@ -5,28 +5,42 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 
 export default function Preview() {
   const [activeTab, setActiveTab] = useState('previewProfile');
   const router = useRouter();
 
+  
+  
   return (
 <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 30 }}>
-{/* Top Bar */}
+      {/* Top Bar */}
       <View style={styles.topBar}>
-        <TouchableOpacity
-          onPress={() => { setActiveTab('editProfile'); router.push('/Profile-Edit'); }}
-          style={[styles.tab, activeTab === 'editProfile' && styles.activeTab]}
-        >
-          <Text style={[styles.topBarText, activeTab === 'editProfile' && styles.activeTabText]}>Edit Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => { setActiveTab('previewProfile'); router.push('/preview'); }}
-          style={[styles.tab, activeTab === 'previewProfile' && styles.activeTab]}
-        >
-          <Text style={[styles.topBarText, activeTab === 'previewProfile' && styles.activeTabText]}>Preview Profile</Text>
-        </TouchableOpacity>
-      </View>
+  <TouchableOpacity
+    onPress={() => { router.push('/student_dashboard'); }}
+    style={styles.tab}
+  >
+    <Text style={styles.topBarText}>Dashboard</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => { setActiveTab('editProfile'); router.push('/Profile-Edit'); }}
+    style={[styles.tab, activeTab === 'editProfile' && styles.activeTab]}
+  >
+    <Text style={[styles.topBarText, activeTab === 'editProfile' && styles.activeTabText]}>Edit Profile</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => { setActiveTab('previewProfile'); router.push('/preview'); }}
+    style={[styles.tab, activeTab === 'previewProfile' && styles.activeTab]}
+  >
+    <Text style={[styles.topBarText, activeTab === 'previewProfile' && styles.activeTabText]}>Preview Profile</Text>
+  </TouchableOpacity>
+</View>
+
 
       {/* Profile Preview Content */}
       <View style={styles.profileContainer}>
@@ -40,91 +54,63 @@ export default function Preview() {
         {/* Profile Text */}
         <View style={styles.textContainer}>
           <Text style={styles.profileText}>Lizondra, 22</Text>
-          <Text style={styles.gradeText}>Grade: 10 (Bayabas)</Text>
+          <Text style={styles.gradeText}>Grade: 10 (Section: Bayabas)</Text>
+          <Text style={styles.gradeText}>LRN: 12318927389</Text>
+
         </View>
       </View>
 
       {/* Additional Information */}
       <View style={styles.detailsContainer}>
-        {/* Other Profile Details */}
-        <View style={styles.detailRow}>
-          <Entypo name="graduation-cap" size={24} color="black" />
-          <Text style={styles.detailText}>Grade: <Text style={styles.boldText}>10</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <FontAwesome6 name="users-line" size={24} color="black" />
-          <Text style={styles.detailText}>Section: <Text style={styles.boldText}>Bayabas</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialCommunityIcons name="human-male-height" size={24} color="black" />
-          <Text style={styles.detailText}>Height: <Text style={styles.boldText}>5'7"</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialCommunityIcons name="weight-kilogram" size={24} color="black" />
-          <Text style={styles.detailText}>Weight: <Text style={styles.boldText}>65 kg</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialIcons name="language" size={24} color="black" />
-          <Text style={styles.detailText}>Languages: <Text style={styles.boldText}>Filipino, English</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Entypo name="location" size={24} color="black" />
-          <Text style={styles.detailText}>Location: <Text style={styles.boldText}>Skina Japan</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialIcons name="church" size={24} color="black" />
-          <Text style={styles.detailText}>Religion: <Text style={styles.boldText}>Christian</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialCommunityIcons name="contacts" size={24} color="black" />
-          <Text style={styles.detailText}>Contact: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text>
-        </View>
+        <Text style={styles.sectionTitle}>Student Details</Text>
+        <View style={styles.detailRow}><Entypo name="user" size={24} color="black" /><Text style={styles.detailText}>Firstname: <Text style={styles.boldText}>Jerome</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome name="user-circle-o" size={24} color="black" /><Text style={styles.detailText}>Lastname: <Text style={styles.boldText}>Lizondra</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="human-male" size={24} color="black" /><Text style={styles.detailText}>Age: <Text style={styles.boldText}>101</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome6 name="users-line" size={18} color="black" /><Text style={styles.detailText}>Section: <Text style={styles.boldText}>Bayabas</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome5 name="birthday-cake" size={24} color="black" /><Text style={styles.detailText}>Birthday: <Text style={styles.boldText}>Nov. 01, 2000</Text></Text></View>
+        <View style={styles.detailRow}><Entypo name="location" size={24} color="black" /><Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina Japan</Text></Text></View>
+        <View style={styles.detailRow}><MaterialIcons name="email" size={24} color="black" /><Text style={styles.detailText}>Email Address: <Text style={styles.boldText}>jeromelizondra123@gmail.com</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="contacts" size={24} color="black" /><Text style={styles.detailText}>Contact: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text></View>
       </View>
 
-      {/* School Details Section */}
-      <View style={styles.schoolDetailsContainer}>
-        <Text style={styles.sectionTitle}>School Details</Text>
-        <View style={styles.detailRow}>
-          <MaterialCommunityIcons name="school" size={24} color="black" />
-          <Text style={styles.detailText}>School Name: <Text style={styles.boldText}>Santol National High School</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialIcons name="location-on" size={24} color="black" />
-          <Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina, Mercado</Text></Text>
-        </View>
-        <View style={styles.detailRow}>
-          <MaterialCommunityIcons name="phone" size={24} color="black" />
-          <Text style={styles.detailText}>Contact: <Text style={styles.boldText}>(+63) 99 1234 5678</Text></Text>
-        </View>
+      {/* Father's Details */}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.sectionTitle}>Father's Details</Text>
+        <View style={styles.detailRow}><Entypo name="user" size={24} color="black" /><Text style={styles.detailText}>Firstname: <Text style={styles.boldText}>Father</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome name="user-circle-o" size={24} color="black" /><Text style={styles.detailText}>Lastname: <Text style={styles.boldText}>Earth</Text></Text></View>
+        <View style={styles.detailRow}><Entypo name="location" size={24} color="black" /><Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina Japan</Text></Text></View>
+        <View style={styles.detailRow}><MaterialIcons name="email" size={24} color="black" /><Text style={styles.detailText}>Email Address: <Text style={styles.boldText}>Father@gmail.com</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="contacts" size={24} color="black" /><Text style={styles.detailText}>Contact: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text></View>
       </View>
 
-      {/* Empty space at the bottom to make sure the scroll works */}
-      <View style={{ height: 10 }} />
-       {/* Subjects Section */}
-       <View style={styles.subjectsContainer}>
-        <Text style={styles.sectionTitle}>Subjects</Text>
-        <View style={styles.subjectRow}>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>English</Text>
-          </View>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>Filipino</Text>
-          </View>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>Math</Text>
-          </View>
-        </View>
-        <View style={styles.subjectRow}>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>MAPEH</Text>
-          </View>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>History</Text>
-          </View>
-          <View style={styles.subjectBox}>
-            <Text style={styles.subjectText}>TLE</Text>
-          </View>
-        </View>
+      {/* Mother's Details */}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.sectionTitle}>Mother's Maiden Details</Text>
+        <View style={styles.detailRow}><Entypo name="user" size={24} color="black" /><Text style={styles.detailText}>Firstname: <Text style={styles.boldText}>Mother</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome name="user-circle-o" size={24} color="black" /><Text style={styles.detailText}>Lastname: <Text style={styles.boldText}>Earth</Text></Text></View>
+        <View style={styles.detailRow}><Entypo name="location" size={24} color="black" /><Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina Japan</Text></Text></View>
+        <View style={styles.detailRow}><MaterialIcons name="email" size={24} color="black" /><Text style={styles.detailText}>Email Address: <Text style={styles.boldText}>Mother@gmail.com</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="contacts" size={24} color="black" /><Text style={styles.detailText}>Contact No.: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text></View>
+      </View>
+
+      {/* Guardian's Details */}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.sectionTitle}>Guardian's Details</Text>
+        <View style={styles.detailRow}><Entypo name="user" size={24} color="black" /><Text style={styles.detailText}>Firstname: <Text style={styles.boldText}>Guar</Text></Text></View>
+        <View style={styles.detailRow}><FontAwesome name="user-circle-o" size={24} color="black" /><Text style={styles.detailText}>Lastname: <Text style={styles.boldText}>Dian</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="robot-love" size={24} color="black" /><Text style={styles.detailText}>Relationship: <Text style={styles.boldText}>Tig Hugas</Text></Text></View>
+        <View style={styles.detailRow}><Entypo name="location" size={24} color="black" /><Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina Japan</Text></Text></View>
+        <View style={styles.detailRow}><MaterialIcons name="email" size={24} color="black" /><Text style={styles.detailText}>Email Address: <Text style={styles.boldText}>Guardian@gmail.com</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="contacts" size={24} color="black" /><Text style={styles.detailText}>Contact No.: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text></View>
+      </View>
+
+      {/* Emergency Contact */}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.sectionTitle}>In Case of Emergency</Text>
+        <View style={styles.detailRow}><Entypo name="user" size={24} color="black" /><Text style={styles.detailText}>Contact Person: <Text style={styles.boldText}>Shesh</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="robot-love" size={24} color="black" /><Text style={styles.detailText}>Relationship: <Text style={styles.boldText}>Ex</Text></Text></View>
+        <View style={styles.detailRow}><Entypo name="location" size={24} color="black" /><Text style={styles.detailText}>Address: <Text style={styles.boldText}>Skina Japan</Text></Text></View>
+        <View style={styles.detailRow}><MaterialCommunityIcons name="contacts" size={24} color="black" /><Text style={styles.detailText}>Contact No.: <Text style={styles.boldText}>(+63) 99 2507 7482</Text></Text></View>
       </View>
     </ScrollView>
   );
@@ -133,7 +119,7 @@ export default function Preview() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: '#f9f9f9' },
   topBar: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 20 },
-  tab: { padding: 10, marginHorizontal: 50 },
+  tab: { padding: 10, marginHorizontal: 20 },
   activeTab: { borderBottomWidth: 2, borderBottomColor: '#0066cc' },
   topBarText: { fontSize: 16, color: '#000' },
   activeTabText: { color: '#0066cc' },
@@ -144,11 +130,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: 'absolute',  // Positions the text absolutely over the image
-    top: 280,              // Adjust the top value to ensure it doesn't overlap
+    top: 260,              // Adjust the top value to ensure it doesn't overlap
     left: 0,          
     padding: 10,           // Padding around the text
     borderRadius: 8,       // Optional: Rounded corners for text box
-    backgroundColor: 'rgba(255, 255, 255, 0.6)', // Semi-transparent background
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
   },
   profileText: {
     fontSize: 24,  // Adjust font size for clarity
@@ -160,18 +146,21 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   detailsContainer: {
-    marginTop: 20, // Adjust spacing to ensure the content doesn't overlap the image
-    width: '100%',
-    paddingHorizontal: 16,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 10,
+    elevation: 2,
   },
   detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
+    gap: 10,
   },
-  detailText: {
+   detailText: {
     fontSize: 16,
-    marginLeft: 10,
     color: '#333',
   },
   boldText: {
@@ -184,28 +173,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
     marginBottom: 10,
-  },
-  subjectRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  subjectBox: {
-    backgroundColor: '#f0f0f0',
-    padding: 10,
-    borderRadius: 8,
-    flex: 1,
-    marginHorizontal: 5,
-    alignItems: 'center',
-  },
-  subjectText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  schoolDetailsContainer: {
-    marginTop: 20,
-    paddingHorizontal: 16,
+    color: '#162938',
   },
 });

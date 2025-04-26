@@ -13,10 +13,6 @@
     const [email, setEmail] = useState('');
     const [contactNumber, setContactNumber] = useState('');
     const [gender, setGender] = useState('');
-    const [customGender, setCustomGender] = useState(''); // State for custom gender input
-    const [height, setHeight] = useState('');
-    const [weight, setWeight] = useState('');
-    const [languages, setLanguages] = useState('');
     const [hometown, setHometown] = useState('');
     const [religiousViews, setReligiousViews] = useState('');
     const [activeTab, setActiveTab] = useState('editProfile');
@@ -44,20 +40,25 @@
         <ScrollView style={styles.container}>
         {/* Top Bar */}
         <View style={styles.topBar}>
-            <TouchableOpacity
+        <TouchableOpacity
+            onPress={() => { router.push('/student_dashboard'); }}
+            style={styles.tab}
+        >
+            <Text style={styles.topBarText}>Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
             onPress={() => { setActiveTab('editProfile'); router.push('/Profile-Edit'); }}
             style={[styles.tab, activeTab === 'editProfile' && styles.activeTab]}
-            >
+        >
             <Text style={[styles.topBarText, activeTab === 'editProfile' && styles.activeTabText]}>Edit Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+        </TouchableOpacity>
+        <TouchableOpacity
             onPress={() => { setActiveTab('previewProfile'); router.push('/preview'); }}
             style={[styles.tab, activeTab === 'previewProfile' && styles.activeTab]}
-            >
+        >
             <Text style={[styles.topBarText, activeTab === 'previewProfile' && styles.activeTabText]}>Preview Profile</Text>
-            </TouchableOpacity>
+        </TouchableOpacity>
         </View>
-
         <View style={styles.formBox}>
             {/* Profile Picture */}
             <View style={styles.profileImageContainer}>
@@ -69,6 +70,7 @@
                 )}
             </TouchableOpacity>
             </View>
+            <Text style={styles.Text}>Personal Information</Text>
 
             {/* Form Fields */}
             <View style={styles.formContainer}>
@@ -132,6 +134,7 @@
                 />
                 {email ? <Text style={styles.floatingLabel}>Email</Text> : null}
             </View>
+            
 
             {/* Contact Number */}
             <View style={styles.inputWrapper}>
@@ -147,78 +150,68 @@
                 />
                 {contactNumber ? <Text style={styles.floatingLabel}>Contact Number</Text> : null}
             </View>
-
-            {/* Height */}
+            {/* Email */}
             <View style={styles.inputWrapper}>
                 <TextInput
                 style={styles.input}
-                placeholder="Height"
+                placeholder="Complete Present Address"
                 placeholderTextColor="#888"
-                value={height}
-                onChangeText={setHeight}
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
                 />
-                {height ? <Text style={styles.floatingLabel}>Height</Text> : null}
+                {email ? <Text style={styles.floatingLabel}>Email</Text> : null}
             </View>
-
-            {/* Weight */}
+            <Text style={styles.Text}>Incase of Emergency Information</Text>
+            {/* Contact Number */}
             <View style={styles.inputWrapper}>
-                <TextInput
+            <TextInput
                 style={styles.input}
-                placeholder="Weight"
+                placeholder="Contact Number"
                 placeholderTextColor="#888"
-                value={weight}
-                onChangeText={setWeight}
-                />
-                {weight ? <Text style={styles.floatingLabel}>Weight</Text> : null}
-            </View>
-
-            {/* Languages Spoken */}
-            <View style={styles.inputWrapper}>
-                <Picker
-                selectedValue={languages}
-                onValueChange={(value) => setLanguages(value)}
-                style={[styles.input, { height: 50 }]}
-                >
-                <Picker.Item label="Select a Language" value="" />
-                <Picker.Item label="English" value="english" />
-                <Picker.Item label="Filipino" value="filipino" />
-                <Picker.Item label="Bisaya" value="bisaya" />
-                </Picker>
-                {languages ? <Text style={styles.floatingLabel}>Languages Spoken</Text> : null}
-            </View>
-
-            {/* Gender Picker */}
-            <View style={styles.inputWrapper}>
-                <Picker
-                selectedValue={gender}
-                onValueChange={(value) => {
-                    setGender(value);
-                    if (value !== 'other') setCustomGender('');
+                value={contactNumber}
+                onChangeText={(text) => {
+                if (/^[0-9]*$/.test(text)) setContactNumber(text);
                 }}
-                style={[styles.input, { height: 50 }]}
-                >
-                <Picker.Item label="Select Gender" value="" />
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
-                <Picker.Item label="Other" value="other" />
-                </Picker>
-                {gender ? <Text style={styles.floatingLabel}>Gender</Text> : null}
+                keyboardType="numeric"
+            />
+            {contactNumber ? <Text style={styles.floatingLabel}>Contact Number</Text> : null}
+            </View>
+            {/* Contact Person */}
+            <View style={styles.inputWrapper}>
+            <TextInput
+                style={styles.input}
+                placeholder="Contact Person"
+                placeholderTextColor="#888"
+                value={contactNumber}
+                onChangeText={setContactNumber}
+            />
+            {contactNumber ? <Text style={styles.floatingLabel}>Contact Person</Text> : null}
             </View>
 
-            {/* Custom Gender Input */}
-            {gender === 'other' && (
-                <View style={styles.inputWrapper}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter Custom Gender"
-                    placeholderTextColor="#888"
-                    value={customGender}
-                    onChangeText={setCustomGender}
-                />
-                {customGender ? <Text style={styles.floatingLabel}>Custom Gender</Text> : null}
-                </View>
-            )}
+            {/* Relationship */}
+            <View style={styles.inputWrapper}>
+            <TextInput
+                style={styles.input}
+                placeholder="Relationship"
+                placeholderTextColor="#888"
+                value={hometown}
+                onChangeText={setHometown}
+            />
+            {hometown ? <Text style={styles.floatingLabel}>Relationship</Text> : null}
+            </View>
 
+            {/* Complete Present Address */}
+            <View style={styles.inputWrapper}>
+            <TextInput
+                style={styles.input}
+                placeholder="Complete Present Address"
+                placeholderTextColor="#888"
+                value={religiousViews}
+                onChangeText={setReligiousViews}
+            />
+            {religiousViews ? <Text style={styles.floatingLabel}>Complete Present Address</Text> : null}
+            </View>
             {/* Save Button */}
             <TouchableOpacity style={styles.saveButton} onPress={saveProfile}>
                 <Text style={styles.saveButtonText}>Save Profile</Text>
@@ -228,21 +221,11 @@
         </ScrollView>
     );
     }
-
     const styles = StyleSheet.create({
     container: { flex: 1, padding: 16, backgroundColor: '#f9f9f9' },
     topBar: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 20 },
-        formBox: {
-            backgroundColor: '#eaeaea',
-            padding: 20,
-            borderRadius: 15,
-            shadowColor: 'black',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 6,
-            elevation: 4,
-        },
-    tab: { padding: 10, marginHorizontal: 50 },
+    formBox: {backgroundColor: '#eaeaea',padding: 20,borderRadius: 15,shadowColor: 'black',shadowOffset: { width: 0, height: 2 },shadowOpacity: 0.1,shadowRadius: 6,elevation: 4,},
+    tab: { padding: 10, marginHorizontal: 20 },
     activeTab: { borderBottomWidth: 2, borderBottomColor: '#0066cc' },
     topBarText: { fontSize: 16, color: '#000' },
     activeTabText: { color: '#0066cc' },
@@ -256,4 +239,5 @@
     floatingLabel: { position: 'absolute', top: -12, left: 10, fontSize: 12, color: '#0066cc' },
     saveButton: { backgroundColor: '#0066cc', padding: 12, borderRadius: 5, alignItems: 'center' },
     saveButtonText: { color: '#fff', fontSize: 16 },
+    Text: {marginBottom:20, fontSize:20, },
     });
